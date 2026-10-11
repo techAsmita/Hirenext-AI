@@ -9,6 +9,18 @@ from alembic import context
 # access to the values within the .ini file in use.
 config = context.config
 
+import os
+from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv(Path(__file__).resolve().parents[1] / ".env", override=True)
+
+database_url = os.getenv("DATABASE_URL")
+if not database_url:
+    raise RuntimeError("DATABASE_URL must be set in backend/.env")
+
+config.set_main_option("sqlalchemy.url", database_url.replace("%", "%%"))
+
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
 if config.config_file_name is not None:

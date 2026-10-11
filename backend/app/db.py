@@ -1,7 +1,15 @@
+﻿import os
+from pathlib import Path
+
+from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
 
-DATABASE_URL = "postgresql+psycopg://asmaniroy@localhost:5432/hirenext"
+load_dotenv(Path(__file__).resolve().parents[1] / ".env", override=True)
+
+DATABASE_URL = os.getenv("DATABASE_URL")
+if not DATABASE_URL:
+    raise RuntimeError("DATABASE_URL must be set in backend/.env")
 
 engine = create_engine(
     DATABASE_URL,
