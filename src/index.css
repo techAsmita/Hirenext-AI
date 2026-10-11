@@ -1,0 +1,101 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-brand-50: #f5f3ff;
+  --color-brand-100: #ede9fe;
+  --color-brand-200: #ddd6fe;
+  --color-brand-300: #c4b5fd;
+  --color-brand-400: #a78bfa;
+  --color-brand-500: #7c5cff;
+  --color-brand-600: #6d4aff;
+  --color-brand-700: #5b3be0;
+  --color-brand-800: #4a2fb8;
+  --color-brand-900: #3b2590;
+  --color-surface: #f6f4ff;
+  --color-surface-elevated: #ffffff;
+  --color-border: #e7e2fb;
+  --color-muted: #64748b;
+  --color-foreground: #0f172a;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-info: #3b82f6;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  html {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    margin: 0;
+    background: var(--color-surface);
+    color: var(--color-foreground);
+  }
+  .dark body,
+  .dark {
+    --color-surface: #13161c;
+    --color-surface-elevated: #191f25;
+    --color-border: #2a2f38;
+    --color-muted: #94a3b8;
+    --color-foreground: #f1f5f9;
+  }
+}
+
+@layer utilities {
+  .card {
+    background: var(--color-surface-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: 1rem;
+    box-shadow: 0 1px 2px rgb(15 23 42 / 0.04), 0 8px 24px -14px rgb(91 91 240 / 0.22);
+  }
+  .card-hover {
+    transition: box-shadow 0.2s, border-color 0.2s;
+  }
+  .card-hover:hover {
+    box-shadow: 0 8px 24px -4px rgb(15 23 42 / 0.08);
+    border-color: #c4b5fd;
+  }
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+  }
+}
+
+/* ===== Dashboard charts (recharts) ===== */
+.hn-chart .recharts-cartesian-grid line { stroke: #e8e6f5; }
+.hn-chart .recharts-cartesian-axis-tick-value { fill: #64748b; font-size: 11px; }
+.hn-chart .hn-bar-label { fill: #334155; font-size: 12px; font-weight: 700; }
+.dark .hn-chart .recharts-cartesian-grid line { stroke: rgba(255, 255, 255, 0.08); }
+.dark .hn-chart .recharts-cartesian-axis-tick-value { fill: #94a3b8; }
+.dark .hn-chart .hn-bar-label { fill: #e2e8f0; }
+
+/* ===== Dark mode: vivid chart colors like the reference ===== */
+.dark .hn-chart .recharts-bar-rectangles > .recharts-bar-rectangle:nth-child(1) .recharts-rectangle { fill: #8b6cf8; }
+.dark .hn-chart .recharts-bar-rectangles > .recharts-bar-rectangle:nth-child(2) .recharts-rectangle { fill: #f56fae; }
+.dark .hn-chart .recharts-bar-rectangles > .recharts-bar-rectangle:nth-child(3) .recharts-rectangle { fill: #34d3a0; }
+.dark .hn-chart .recharts-bar-rectangles > .recharts-bar-rectangle:nth-child(4) .recharts-rectangle { fill: #ffa246; }
+.dark .hn-chart .recharts-bar-rectangles > .recharts-bar-rectangle:nth-child(5) .recharts-rectangle { fill: #5b8ff0; }
+.dark [data-ring="0"] .hn-ring-fg { stroke: #7c83ff; }
+.dark [data-ring="3"] .hn-ring-fg { stroke: #ff5c93; }
+
+/* ===== No elastic over-scroll on any page (like Google / LinkedIn) ===== */
+html,
+body {
+  overscroll-behavior: none;
+}
+.scrollbar-thin,
+[class*="overflow-y-auto"],
+[class*="overflow-x-auto"],
+[class*="overflow-auto"] {
+  overscroll-behavior: contain;
+}
